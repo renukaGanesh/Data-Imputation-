@@ -1,0 +1,26 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+job = pd.read_csv('/kaggle/input/real-or-fake-fake-jobposting-prediction/fake_job_postings.csv')
+job.isnull().sum()
+job.columns
+job.dtypes
+job.shape #17800,18
+x=job.iloc[:,:-1]
+y=job.iloc[:,-1]
+
+# adding the columns to the salary data frame 
+
+#job= pd.concat([job,job_dummies],axis=1)
+#job.head(10)
+job.isnull().sum()
+z=job.iloc[:,[2,3,4,5,6,7,8,12,13,14,15,16]]
+
+from sklearn.impute import SimpleImputer
+imputer= SimpleImputer(missing_values = np.nan,strategy='most_frequent')
+#to fit
+imputer = imputer.fit(z)
+z=imputer.transform(z)
+z=pd.DataFrame(list(z))
+#VALUES THAT PREVIOUSLY HAD NULL VALUES HAVE NOW NO NULL VALUES
+z.isnull().sum() 
